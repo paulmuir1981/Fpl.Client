@@ -45,7 +45,7 @@ namespace Fpl.Client.Models
         public string FirstName { get; set; }
 
         [JsonPropertyName("form")]
-        public string Form { get; set; }
+        public decimal Form { get; set; }
 
         [JsonPropertyName("id")]
         public int Id { get; set; }
