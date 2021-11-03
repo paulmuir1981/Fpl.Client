@@ -18,3 +18,9 @@ steps:
       command: test
       projects: '**/*Tests/*.csproj'
       testRunTitle: 'xUnit Test Run'
+
+  - task: NuGetCommand@2
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/src/*.csproj'
+      versioningScheme: 'byBuildNumber'
