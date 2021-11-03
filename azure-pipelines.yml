@@ -20,6 +20,7 @@ steps:
       testRunTitle: 'xUnit Test Run'
 
   - task: NuGetCommand@2
+    displayName: 'NuGet pack'
     inputs:
       command: 'pack'
       packagesToPack: '**/src/*.csproj'
@@ -27,3 +28,11 @@ steps:
       majorVersion: '1'
       minorVersion: '0'
       patchVersion: '0'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet push'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '90a424ef-6b79-4eee-8707-e780776b42c5'
