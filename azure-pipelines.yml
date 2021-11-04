@@ -16,14 +16,14 @@ steps:
     displayName: 'dotnet test'
     inputs:
       command: test
-      projects: '**/*Tests/*.csproj'
+      projects: '**\*Tests\*.csproj'
       testRunTitle: 'xUnit Test Run'
 
   - task: NuGetCommand@2
     displayName: 'NuGet pack'
     inputs:
       command: 'pack'
-      packagesToPack: 'src/*.csproj'
+      packagesToPack: '**\*.csproj;!**\*Tests\*.csproj'
       versioningScheme: 'byPrereleaseNumber'
       majorVersion: '1'
       minorVersion: '0'
