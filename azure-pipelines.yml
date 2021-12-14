@@ -1,0 +1,38 @@
+trigger:
+- main
+pool:
+ vmImage: 'unbuntu-latest'
+ name: Default
+
+variables:
+ buildConfiguration: 'Release'
+
+steps:
+  - task: UseDotNet@2
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet test'
+    inputs:
+      command: test
+      projects: '**\*Tests\*.csproj'
+      testRunTitle: 'xUnit Test Run'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**\*.csproj;!**\*Tests\*.csproj'
+      versioningScheme: 'byPrereleaseNumber'
+      majorVersion: '1'
+      minorVersion: '0'
+      patchVersion: '0'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet push'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/src/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '90a424ef-6b79-4eee-8707-e780776b42c5'
