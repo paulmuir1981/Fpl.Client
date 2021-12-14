@@ -39,10 +39,10 @@ namespace Fpl.Client.Models
         public bool LeagueKoFirstInsteadOfRandom { get; set; }
 
         [JsonPropertyName("cup_start_event_id")]
-        public int CupStartEventId { get; set; }
+        public int? CupStartEventId { get; set; }
 
         [JsonPropertyName("cup_stop_event_id")]
-        public int CupStopEventId { get; set; }
+        public int? CupStopEventId { get; set; }
 
         [JsonPropertyName("cup_qualifying_method")]
         public string CupQualifyingMethod { get; set; }
