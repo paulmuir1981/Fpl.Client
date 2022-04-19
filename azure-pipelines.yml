@@ -20,6 +20,13 @@ variables:
 steps:
 - task: NuGetAuthenticate@0
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
+
+- script: dotnet restore
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
