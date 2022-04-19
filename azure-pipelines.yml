@@ -19,15 +19,19 @@ variables:
 
 steps:
 - task: NuGetAuthenticate@0
+  displayName: 'NuGet Authenticate'
 
 - task: UseDotNet@2
+  displayName: 'Use Dot Net 6'
   inputs:
     packageType: 'sdk'
     version: '6.x'
 
 - script: dotnet restore
+  displayName: 'Restore'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
     projects: 'src/**/*.csproj'
@@ -45,3 +49,5 @@ steps:
     command: 'pack'
     packagesToPack: 'src/**/*.csproj'
     versioningScheme: 'byBuildNumber'
+
+- script: dotnet nuget push --api-key AzureArtifacts --source https://pkgs.dev.azure.com/paulmuir1981/_packaging/paulmuir1981/nuget/v3/index.json Fpl.Client.*.nupkg
