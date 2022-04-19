@@ -12,11 +12,6 @@ pool:
   vmImage: 'ubuntu-latest'
   name: Default
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
