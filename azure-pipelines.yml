@@ -50,4 +50,4 @@ steps:
     packagesToPack: 'src/**/*.csproj'
     versioningScheme: 'byBuildNumber'
 
-- script: dotnet nuget push --api-key AzureArtifacts --source https://pkgs.dev.azure.com/paulmuir1981/_packaging/paulmuir1981/nuget/v3/index.json Fpl.Client.*.nupkg
+- script: dotnet nuget push --api-key AzureArtifacts --source https://pkgs.dev.azure.com/paulmuir1981/_packaging/paulmuir1981/nuget/v3/index.json *.nupkg
