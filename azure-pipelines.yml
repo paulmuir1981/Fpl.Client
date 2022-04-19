@@ -3,6 +3,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+name: $(Build.DefinitionName)_$(MajorVersion).$(MinorVersion).$(Year:yyyy)$(DayOfYear)$(Rev:rr)
+
 trigger:
 - main
 
@@ -16,12 +18,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
+- task: NuGetAuthenticate@0
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
+- script: nuget restore
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -33,3 +32,10 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Package Project'
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/**/*.csproj'
+    versioningScheme: 'byBuildNumber'
